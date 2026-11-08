@@ -27,12 +27,15 @@ When you change the chart's state, it animates to the new state internally (usin
 |getTitle|`RadarChartTitle Function(int, double)?`|`null`|`getTitle` is used to draw titles outside the [`RadarChart`](https://pub.dev/documentation/fl_chart/latest/fl_chart/RadarChart-class.html) `getTitle` is type of [`GetTitleByIndexFunction`](https://pub.dev/documentation/fl_chart/latest/fl_chart/GetTitleByIndexFunction.html) so you should return a valid [`RadarChartTitle`](#radarcharttitle) for each `index` (we provide a default `angle` = index * 360 / titleCount)<br><br><pre>getTitle: (index, angle) {<br>  switch (index) {<br>    case 0:<br>      return RadarChartTitle(text: 'Mobile or Tablet', angle: angle);<br>    case 2:<br>      return RadarChartTitle(text: 'Desktop', angle: angle);<br>    case 1:<br>      return RadarChartTitle(text: 'TV', angle: angle);<br>    default:<br>      return const RadarChartTitle(text: '');<br>  }<br>}</pre>|
 |titleTextStyle|`TextStyle?`|`null`|Defines style of showing [`RadarChart`](https://pub.dev/documentation/fl_chart/latest/fl_chart/RadarChart-class.html) titles.|
 |titlePositionPercentageOffset|`double?`|`0.2`|the `titlePositionPercentageOffset` is the place of showing title on the [`RadarChart`](https://pub.dev/documentation/fl_chart/latest/fl_chart/RadarChart-class.html) The higher the value of this field, the more titles move away from the chart. this field should be between 0 and 1, if it is 0 the title will be drawn near the inside section, if it is 1 the title will be drawn near the outside of section, the default value is 0.2.|
-|tickCount|`int?`|`1`|Defines the number of ticks that should be paint in [`RadarChart`](https://pub.dev/documentation/fl_chart/latest/fl_chart/RadarChart-class.html) the default &amp; minimum value of this field is 1.|
-|ticksTextStyle|`TextStyle?`|`null`|Defines style of showing [`RadarChart`](https://pub.dev/documentation/fl_chart/latest/fl_chart/RadarChart-class.html) tick titles.|
-|tickBorderData|`BorderSide?`|`const BorderSide(width: 2)`|Defines style of showing [`RadarChart`](https://pub.dev/documentation/fl_chart/latest/fl_chart/RadarChart-class.html) tick borders.|
+|tickCount|`int?`|`null`|**Deprecated**: Please use `ticksData.count` instead<br><br>Defines the number of ticks that should be paint in [`RadarChart`](https://pub.dev/documentation/fl_chart/latest/fl_chart/RadarChart-class.html) the default &amp; minimum value of this field is 1.|
+|ticksTextStyle|`TextStyle?`|`null`|**Deprecated**: Please use `ticksData.textStyle` instead<br><br>Defines style of showing [`RadarChart`](https://pub.dev/documentation/fl_chart/latest/fl_chart/RadarChart-class.html) tick titles.|
+|tickBorderData|`BorderSide?`|`null`|**Deprecated**: Please use `ticksData.borderSide` instead<br><br>Defines style of showing [`RadarChart`](https://pub.dev/documentation/fl_chart/latest/fl_chart/RadarChart-class.html) tick borders.|
+|ticksData|`RadarTicksData?`|`const RadarTicksData()`|Defines ticks for [`RadarChart`](https://pub.dev/documentation/fl_chart/latest/fl_chart/RadarChart-class.html).|
 |gridBorderData|`BorderSide?`|`const BorderSide(width: 2)`|Defines style of showing [`RadarChart`](https://pub.dev/documentation/fl_chart/latest/fl_chart/RadarChart-class.html) grid borders.|
 |radarTouchData|`RadarTouchData?`|`RadarTouchData()`|Handles touch behaviors and responses.|
 |isMinValueAtCenter|`bool`|`false`|If `isMinValueAtCenter` is true, the minimum value of the [`RadarChart`](https://pub.dev/documentation/fl_chart/latest/fl_chart/RadarChart-class.html) will be at the center of the chart.|
+|maxValue|`double?`|`null`|Define the maximum value of the [`RadarChart`](https://pub.dev/documentation/fl_chart/latest/fl_chart/RadarChart-class.html).|
+|minValue|`double?`|`null`|Define the minimum value of the [`RadarChart`](https://pub.dev/documentation/fl_chart/latest/fl_chart/RadarChart-class.html).|
 |borderData|`FlBorderData?`|`FlBorderData()`|Holds data to draw the border around the chart, see [`FlBorderData`](base_chart.md#flborderdata).|
 <!-- /api -->
 
@@ -46,6 +49,21 @@ When you change the chart's state, it animates to the new state internally (usin
 |borderColor|`Color?`|`Colors.cyan`|defines the border color of the [`RadarDataSet`](#radardataset).|
 |borderWidth|`double?`|`2.0`|defines the width of [`RadarDataSet`](#radardataset) border. the default value of this field is 2.0|
 |entryRadius|`double?`|`5.0`|defines the radius of each entry the default value of this field is 5.0|
+|entryColor|`Color?`|`null`|defines the color of each entry the default value of this field is null|
+|dotColor|`Color?`|`null`|defines the color of each entry dot the default value of this field is null|
+|dotWidth|`double?`|`null`|defines the width of each entry dot the default value of this field is null|
+<!-- /api -->
+
+### RadarTicksData
+<!-- api:RadarTicksData -->
+|Property|Type|Default|Description|
+|:-------|:---|:------|:----------|
+|backgroundColors|`List<Color>?`|`null`|Define the background color of the [`RadarChart`](https://pub.dev/documentation/fl_chart/latest/fl_chart/RadarChart-class.html) tick.|
+|count|`int?`|`1`|Defines the number of ticks that should be paint in [`RadarChart`](https://pub.dev/documentation/fl_chart/latest/fl_chart/RadarChart-class.html) the default &amp; minimum value of this field is 1.|
+|showText|`bool`|`true`|Defines whether to show [`RadarChart`](https://pub.dev/documentation/fl_chart/latest/fl_chart/RadarChart-class.html) tick titles.|
+|textStyle|`TextStyle?`|`null`|Defines style of showing [`RadarChart`](https://pub.dev/documentation/fl_chart/latest/fl_chart/RadarChart-class.html) tick titles.|
+|showBorder|`bool`|`true`|Defines whether to show [`RadarChart`](https://pub.dev/documentation/fl_chart/latest/fl_chart/RadarChart-class.html) tick borders.|
+|borderSide|`BorderSide?`|`const BorderSide(width: 2)`|Defines style of showing [`RadarChart`](https://pub.dev/documentation/fl_chart/latest/fl_chart/RadarChart-class.html) tick borders.|
 <!-- /api -->
 
 ### RadarEntry

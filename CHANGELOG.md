@@ -1,3 +1,9 @@
+## 1.3.0-1
+* **FEATURE** Add ticksData instead of tickCount, ticksTextStyle, tickBorderData to [RadarChartData](https://github.com/LiWenHui96/fl_chart/blob/1.3.0-radar/repo_files/documentations/radar_chart.md#RadarChartData).
+* **FEATURE** Add tickData.backgroundColors, ticksData.showText, ticksData.showBorder to [RadarTicksData](https://github.com/LiWenHui96/fl_chart/blob/1.3.0-radar/repo_files/documentations/radar_chart.md#RadarTicksData).
+* **FEATURE** Add maxValue, minValue property to [RadarChartData](https://github.com/LiWenHui96/fl_chart/blob/1.3.0-radar/repo_files/documentations/radar_chart.md#RadarChartData).
+* **FEATURE** Add entryColor, dotColor, dotWidth to [RadarDataSet](https://github.com/LiWenHui96/fl_chart/blob/1.3.0-radar/repo_files/documentations/radar_chart.md#radardataset).
+
 ## 1.3.0
 * **FEATURE** (by @glemartret) Add the Gauge Chart (`GaugeChart`), #1933
 * **FEATURE** (by @imaNNeo) Add the gauge marker painter to draw markers on the Gauge Chart, #2096
