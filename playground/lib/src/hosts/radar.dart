@@ -81,9 +81,11 @@ RadarChartData sampleRadarChart({
   radarTouchData: radarTouchData,
   radarBorderData: const BorderSide(color: Colors.white24),
   gridBorderData: const BorderSide(color: Colors.white24),
-  tickBorderData: const BorderSide(color: Colors.white10),
-  tickCount: 3,
-  ticksTextStyle: const TextStyle(color: AppColors.muted, fontSize: 10),
+  ticksData: const RadarTicksData(
+    count: 3,
+    borderSide: BorderSide(color: Colors.white10),
+    textStyle: TextStyle(color: AppColors.muted, fontSize: 10),
+  ),
   titleTextStyle: const TextStyle(color: Colors.white, fontSize: 12),
   getTitle: getTitle ?? (index, angle) => RadarChartTitle(text: _titles[index]),
 );

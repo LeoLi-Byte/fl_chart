@@ -15,7 +15,7 @@ String registryDart(Iterable<ApiType> types) {
     ..sort((a, b) => a.name.compareTo(b.name));
   final copyable = classes.where((t) => t.copyIssue == null).toList();
   final usesDeprecated = copyable.any(
-    (t) => t.members.any((m) => m.deprecationMessage != null),
+    (t) => t.registryMembers.any((m) => m.deprecationMessage != null),
   );
 
   const header =
@@ -37,7 +37,7 @@ String registryDart(Iterable<ApiType> types) {
     out
       ..writeln('${_str(type.name)}: ClassSpec(name: ${_str(type.name)},')
       ..writeln('properties: const [');
-    for (final m in type.members) {
+    for (final m in type.registryMembers) {
       final arguments = [
         'name: ${_str(m.name)}',
         'type: ${_str(m.type!)}',
@@ -66,7 +66,7 @@ String registryDart(Iterable<ApiType> types) {
       ..writeln('Object? _read$name(Object instance, String property) {')
       ..writeln('final o = instance as $name;')
       ..writeln('return switch (property) {');
-    for (final m in type.members) {
+    for (final m in type.registryMembers) {
       out.writeln('${_str(m.name)} => o.${m.fieldName},');
     }
     out
@@ -79,7 +79,7 @@ String registryDart(Iterable<ApiType> types) {
       )
       ..writeln('final o = instance as $name;')
       ..writeln('return $name(');
-    for (final m in type.members) {
+    for (final m in type.registryMembers) {
       final value =
           '_value<${m.typeCode}>(values, ${_str(m.name)}, o.${m.fieldName})';
       out.writeln(m.isPositional ? '$value,' : '${m.name}: $value,');

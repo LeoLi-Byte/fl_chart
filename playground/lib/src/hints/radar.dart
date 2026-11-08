@@ -35,14 +35,24 @@ final radarHints = <String, PropertyHint>{
     min: 0,
     max: 1,
   ),
-  'RadarChartData.tickCount': const PropertyHint(min: 1, max: 6),
-  'RadarChartData.ticksTextStyle': const PropertyHint(
-    sample: 'TextStyle(color: Color(0xffa3aecb), fontSize: 10)',
-    presets: [_amberText],
-  ),
-  'RadarChartData.tickBorderData': const PropertyHint(
-    sample: 'BorderSide(color: Colors.white10)',
-    presets: [_thickBorder],
+  'RadarChartData.ticksData': const PropertyHint(
+    presets: [
+      Preset('RadarTicksData(count: 3)', RadarTicksData(count: 3)),
+      Preset(
+        'RadarTicksData(count: 6, borderSide: BorderSide(color: Colors.cyan, width: 3))',
+        RadarTicksData(
+          count: 6,
+          borderSide: BorderSide(color: Colors.cyan, width: 3),
+        ),
+      ),
+      Preset(
+        'RadarTicksData(count: 6, textStyle: TextStyle(color: Colors.amber, fontSize: 14))',
+        RadarTicksData(
+          count: 6,
+          textStyle: TextStyle(color: Colors.amber, fontSize: 14),
+        ),
+      ),
+    ],
   ),
   'RadarChartData.gridBorderData': const PropertyHint(
     sample: 'BorderSide(color: Colors.white24)',

@@ -51,6 +51,11 @@ class ApiType {
   /// Why an instance can't be copied with a changed property (constructor
   /// mode), null if it can: every parameter must have a matching getter.
   final String? copyIssue;
+
+  /// The members the playground registry can read and copy: deprecated
+  /// constructor parameters without a getter are documented but skipped.
+  List<ApiMember> get registryMembers =>
+      members.where((m) => !m.isDeprecatedWithoutGetter).toList();
 }
 
 class ApiMember {
@@ -67,6 +72,7 @@ class ApiMember {
     this.isNullable = false,
     this.kindType,
     this.typeCode,
+    this.isDeprecatedWithoutGetter = false,
   }) : fieldName = fieldName ?? name;
 
   final String name;
@@ -100,6 +106,11 @@ class ApiMember {
   /// The enum ([PropertyKind.enumeration]) or the documented class
   /// ([PropertyKind.nested]) of the type.
   final String? kindType;
+
+  /// A deprecated constructor parameter that has no matching getter: kept in
+  /// the markdown docs for backward compatibility, but the playground
+  /// registry can't read or copy it.
+  final bool isDeprecatedWithoutGetter;
 
   final DocText doc;
 }

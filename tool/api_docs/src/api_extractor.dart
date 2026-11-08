@@ -92,6 +92,10 @@ class ApiExtractor {
       // The field can have another name (`gaugeTouchData = touchData ?? ...`).
       final fieldName = fieldNames[paramName] ?? paramName;
       final field = _findField(cls, fieldName);
+      final getter = cls.thisType.lookUpGetter(fieldName, cls.library);
+      final deprecatedWithoutGetter =
+          _deprecation(param) != null &&
+          (getter == null || getter.isPrivate);
       final (kind, kindType) = _kindOf(param.type, isDocumented);
       members.add(
         ApiMember(
@@ -107,6 +111,7 @@ class ApiExtractor {
           kindType: kindType,
           isNullable:
               param.type.nullabilitySuffix == NullabilitySuffix.question,
+          isDeprecatedWithoutGetter: deprecatedWithoutGetter,
           doc: _doc(name, paramName, field ?? param),
         ),
       );
@@ -131,6 +136,10 @@ class ApiExtractor {
     if (cls.typeParameters.isNotEmpty) return 'the class is generic';
     final getter = cls.thisType.lookUpGetter(fieldName, cls.library);
     if (getter == null || getter.isPrivate) {
+      // A deprecated parameter without a getter only keeps backward
+      // compatibility; the registry skips it instead of dropping the whole
+      // class' read/copy support.
+      if (_deprecation(param) != null) return null;
       return 'the `${param.name}` parameter has no matching getter';
     }
     if (!cls.library.typeSystem.isAssignableTo(getter.returnType, param.type)) {

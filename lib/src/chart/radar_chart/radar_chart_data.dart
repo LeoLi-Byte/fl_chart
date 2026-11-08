@@ -120,9 +120,13 @@ class RadarChartData extends BaseChartData with Equatable {
     this.getTitle,
     this.titleTextStyle,
     double? titlePositionPercentageOffset,
+    /// Defines the number of ticks that should be paint in [RadarChart]
+    /// the default & minimum value of this field is 1.
     @Deprecated('Please use [ticksData.count] instead') int? tickCount,
+    /// Defines style of showing [RadarChart] tick titles.
     @Deprecated('Please use [ticksData.textStyle] instead')
     TextStyle? ticksTextStyle,
+    /// Defines style of showing [RadarChart] tick borders.
     @Deprecated('Please use [ticksData.borderSide] instead')
     BorderSide? tickBorderData,
     RadarTicksData? ticksData,

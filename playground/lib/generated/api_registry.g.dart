@@ -2746,25 +2746,12 @@ final apiRegistry = <String, ClassSpec>{
         defaultCode: '0.2',
       ),
       PropertySpec(
-        name: 'tickCount',
-        type: 'int?',
-        kind: PropertyKind.integer,
+        name: 'ticksData',
+        type: 'RadarTicksData?',
+        kind: PropertyKind.nested,
         isNullable: true,
-        defaultCode: '1',
-      ),
-      PropertySpec(
-        name: 'ticksTextStyle',
-        type: 'TextStyle?',
-        kind: PropertyKind.other,
-        isNullable: true,
-        defaultCode: 'null',
-      ),
-      PropertySpec(
-        name: 'tickBorderData',
-        type: 'BorderSide?',
-        kind: PropertyKind.other,
-        isNullable: true,
-        defaultCode: 'const BorderSide(width: 2)',
+        nestedType: 'RadarTicksData',
+        defaultCode: 'const RadarTicksData()',
       ),
       PropertySpec(
         name: 'gridBorderData',
@@ -2786,6 +2773,20 @@ final apiRegistry = <String, ClassSpec>{
         type: 'bool',
         kind: PropertyKind.boolean,
         defaultCode: 'false',
+      ),
+      PropertySpec(
+        name: 'maxValue',
+        type: 'double?',
+        kind: PropertyKind.decimal,
+        isNullable: true,
+        defaultCode: 'null',
+      ),
+      PropertySpec(
+        name: 'minValue',
+        type: 'double?',
+        kind: PropertyKind.decimal,
+        isNullable: true,
+        defaultCode: 'null',
       ),
       PropertySpec(
         name: 'borderData',
@@ -2877,6 +2878,27 @@ final apiRegistry = <String, ClassSpec>{
         isNullable: true,
         defaultCode: '5.0',
       ),
+      PropertySpec(
+        name: 'entryColor',
+        type: 'Color?',
+        kind: PropertyKind.color,
+        isNullable: true,
+        defaultCode: 'null',
+      ),
+      PropertySpec(
+        name: 'dotColor',
+        type: 'Color?',
+        kind: PropertyKind.color,
+        isNullable: true,
+        defaultCode: 'null',
+      ),
+      PropertySpec(
+        name: 'dotWidth',
+        type: 'double?',
+        kind: PropertyKind.decimal,
+        isNullable: true,
+        defaultCode: 'null',
+      ),
     ],
     read: _readRadarDataSet,
     copy: _copyRadarDataSet,
@@ -2893,6 +2915,53 @@ final apiRegistry = <String, ClassSpec>{
     ],
     read: _readRadarEntry,
     copy: _copyRadarEntry,
+  ),
+  'RadarTicksData': ClassSpec(
+    name: 'RadarTicksData',
+    properties: const [
+      PropertySpec(
+        name: 'backgroundColors',
+        type: 'List<Color>?',
+        kind: PropertyKind.other,
+        isNullable: true,
+        defaultCode: 'null',
+      ),
+      PropertySpec(
+        name: 'count',
+        type: 'int?',
+        kind: PropertyKind.integer,
+        isNullable: true,
+        defaultCode: '1',
+      ),
+      PropertySpec(
+        name: 'showText',
+        type: 'bool',
+        kind: PropertyKind.boolean,
+        defaultCode: 'true',
+      ),
+      PropertySpec(
+        name: 'textStyle',
+        type: 'TextStyle?',
+        kind: PropertyKind.other,
+        isNullable: true,
+        defaultCode: 'null',
+      ),
+      PropertySpec(
+        name: 'showBorder',
+        type: 'bool',
+        kind: PropertyKind.boolean,
+        defaultCode: 'true',
+      ),
+      PropertySpec(
+        name: 'borderSide',
+        type: 'BorderSide?',
+        kind: PropertyKind.other,
+        isNullable: true,
+        defaultCode: 'const BorderSide(width: 2)',
+      ),
+    ],
+    read: _readRadarTicksData,
+    copy: _copyRadarTicksData,
   ),
   'RadarTouchData': ClassSpec(
     name: 'RadarTouchData',
@@ -5606,12 +5675,12 @@ Object? _readRadarChartData(Object instance, String property) {
     'getTitle' => o.getTitle,
     'titleTextStyle' => o.titleTextStyle,
     'titlePositionPercentageOffset' => o.titlePositionPercentageOffset,
-    'tickCount' => o.tickCount,
-    'ticksTextStyle' => o.ticksTextStyle,
-    'tickBorderData' => o.tickBorderData,
+    'ticksData' => o.ticksData,
     'gridBorderData' => o.gridBorderData,
     'radarTouchData' => o.radarTouchData,
     'isMinValueAtCenter' => o.isMinValueAtCenter,
+    'maxValue' => o.maxValue,
+    'minValue' => o.minValue,
     'borderData' => o.borderData,
     _ => throw ArgumentError.value(property, 'property'),
   };
@@ -5646,17 +5715,7 @@ RadarChartData _copyRadarChartData(
       'titlePositionPercentageOffset',
       o.titlePositionPercentageOffset,
     ),
-    tickCount: _value<int?>(values, 'tickCount', o.tickCount),
-    ticksTextStyle: _value<TextStyle?>(
-      values,
-      'ticksTextStyle',
-      o.ticksTextStyle,
-    ),
-    tickBorderData: _value<BorderSide?>(
-      values,
-      'tickBorderData',
-      o.tickBorderData,
-    ),
+    ticksData: _value<RadarTicksData?>(values, 'ticksData', o.ticksData),
     gridBorderData: _value<BorderSide?>(
       values,
       'gridBorderData',
@@ -5672,6 +5731,8 @@ RadarChartData _copyRadarChartData(
       'isMinValueAtCenter',
       o.isMinValueAtCenter,
     ),
+    maxValue: _value<double?>(values, 'maxValue', o.maxValue),
+    minValue: _value<double?>(values, 'minValue', o.minValue),
     borderData: _value<FlBorderData?>(values, 'borderData', o.borderData),
   );
 }
@@ -5713,6 +5774,9 @@ Object? _readRadarDataSet(Object instance, String property) {
     'borderColor' => o.borderColor,
     'borderWidth' => o.borderWidth,
     'entryRadius' => o.entryRadius,
+    'entryColor' => o.entryColor,
+    'dotColor' => o.dotColor,
+    'dotWidth' => o.dotWidth,
     _ => throw ArgumentError.value(property, 'property'),
   };
 }
@@ -5730,6 +5794,9 @@ RadarDataSet _copyRadarDataSet(Object instance, Map<String, Object?> values) {
     borderColor: _value<ui.Color?>(values, 'borderColor', o.borderColor),
     borderWidth: _value<double?>(values, 'borderWidth', o.borderWidth),
     entryRadius: _value<double?>(values, 'entryRadius', o.entryRadius),
+    entryColor: _value<ui.Color?>(values, 'entryColor', o.entryColor),
+    dotColor: _value<ui.Color?>(values, 'dotColor', o.dotColor),
+    dotWidth: _value<double?>(values, 'dotWidth', o.dotWidth),
   );
 }
 
@@ -5744,6 +5811,38 @@ Object? _readRadarEntry(Object instance, String property) {
 RadarEntry _copyRadarEntry(Object instance, Map<String, Object?> values) {
   final o = instance as RadarEntry;
   return RadarEntry(value: _value<double>(values, 'value', o.value));
+}
+
+Object? _readRadarTicksData(Object instance, String property) {
+  final o = instance as RadarTicksData;
+  return switch (property) {
+    'backgroundColors' => o.backgroundColors,
+    'count' => o.count,
+    'showText' => o.showText,
+    'textStyle' => o.textStyle,
+    'showBorder' => o.showBorder,
+    'borderSide' => o.borderSide,
+    _ => throw ArgumentError.value(property, 'property'),
+  };
+}
+
+RadarTicksData _copyRadarTicksData(
+  Object instance,
+  Map<String, Object?> values,
+) {
+  final o = instance as RadarTicksData;
+  return RadarTicksData(
+    backgroundColors: _value<List<ui.Color>?>(
+      values,
+      'backgroundColors',
+      o.backgroundColors,
+    ),
+    count: _value<int?>(values, 'count', o.count),
+    showText: _value<bool>(values, 'showText', o.showText),
+    textStyle: _value<TextStyle?>(values, 'textStyle', o.textStyle),
+    showBorder: _value<bool>(values, 'showBorder', o.showBorder),
+    borderSide: _value<BorderSide?>(values, 'borderSide', o.borderSide),
+  );
 }
 
 Object? _readRadarTouchData(Object instance, String property) {
